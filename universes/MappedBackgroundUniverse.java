@@ -12,10 +12,10 @@ public class MappedBackgroundUniverse implements Universe {
 
 	public MappedBackgroundUniverse () {
 
-		background = new MappedBackground();
-		ArrayList<DisplayableSprite> barriers = ((MappedBackground)background).getBarriers();
+		background = new ABCBackground();
+		ArrayList<DisplayableSprite> barriers = ((ABCBackground)background).getBarriers();
 		
-		player1 = new ABCSprite(MappedBackground.TILE_HEIGHT * 2, MappedBackground.TILE_WIDTH * 2);
+		player1 = new ABCSprite(ABCBackground.TILE_HEIGHT * 2, ABCBackground.TILE_WIDTH * 2);
 		
 		sprites.add(player1);
 		sprites.addAll(barriers);
