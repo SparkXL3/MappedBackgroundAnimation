@@ -4,46 +4,50 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class CoinSprite implements DisplayableSprite {
+public class OtherSprite implements DisplayableSprite {
 
-	private static Image image;
-	private boolean visible = true;
+	private static Image image;	
 	private double centerX = 0;
 	private double centerY = 0;
-	private double width = 25;
-	private double height = 25;
-	private boolean dispose = false;
+	private double width = 50;
+	private double height = 50;
+	private boolean dispose = false;	
+
+	private final double VELOCITY = 200;
+
+	public OtherSprite(double centerX, double centerY, double height, double width) {
+		this(centerX, centerY);
 		
-	public CoinSprite(double centerX, double centerY) {
-		
-		if (image == null && visible) {
-			try {
-				image = ImageIO.read(new File("res/coin.png"));
-				System.out.println(this.getClass().toString());
-			}
-			catch (IOException e) {
-				e.printStackTrace();
-			}		
-		}
-		
+		this.height = height;
+		this.width = width;
+	}
+
+	
+	public OtherSprite(double centerX, double centerY) {
+
 		this.centerX = centerX;
 		this.centerY = centerY;
 		
+		if (image == null) {
+			try {
+				image = ImageIO.read(new File("res/simple-sprite.png"));
+				this.height = this.image.getHeight(null);
+				this.width = this.image.getWidth(null);
+			}
+			catch (IOException e) {
+				System.out.println(e.toString());
+			}		
+		}		
 	}
-	
 
 	public Image getImage() {
 		return image;
 	}
 	
-	public void setVisible(boolean visible) {
-		this.visible = visible;
-	}
-	
 	//DISPLAYABLE
 	
 	public boolean getVisible() {
-		return this.visible;
+		return true;
 	}
 	
 	public double getMinX() {
@@ -80,15 +84,15 @@ public class CoinSprite implements DisplayableSprite {
 	
 	
 	public boolean getDispose() {
-		return this.dispose;
+		return dispose;
 	}
-	
+
 	public void setDispose(boolean dispose) {
 		this.dispose = dispose;
 	}
 
 	public void update(Universe universe, KeyboardInput keyboard, long actual_delta_time) {
-			
+		
 	}
-
+	
 }
