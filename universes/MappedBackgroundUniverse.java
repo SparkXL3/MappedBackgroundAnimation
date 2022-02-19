@@ -4,7 +4,8 @@ public class MappedBackgroundUniverse implements Universe {
 
 
 	private boolean complete = false;	
-	private Background background = null;	
+	private Background background = null;
+	private ArrayList<Background> backgrounds = null;
 	private DisplayableSprite player1 = null;
 	private ArrayList<DisplayableSprite> sprites = new ArrayList<DisplayableSprite>();
 	private double xCenter = 0;
@@ -14,6 +15,8 @@ public class MappedBackgroundUniverse implements Universe {
 
 		background = new ABCBackground();
 		ArrayList<DisplayableSprite> barriers = ((ABCBackground)background).getBarriers();
+		backgrounds =new ArrayList<Background>();
+		backgrounds.add(background);
 		
 		player1 = new ABCSprite(ABCBackground.TILE_HEIGHT * 2, ABCBackground.TILE_WIDTH * 2);
 		
@@ -50,10 +53,10 @@ public class MappedBackgroundUniverse implements Universe {
 		complete = true;
 	}
 
-	public Background getBackground() {
-		return background;
-	}
-
+	@Override
+	public ArrayList<Background> getBackgrounds() {
+		return backgrounds;
+	}	
 	public DisplayableSprite getPlayer1() {
 		return player1;
 	}
