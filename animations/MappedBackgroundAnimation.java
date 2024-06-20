@@ -1,24 +1,44 @@
 public class MappedBackgroundAnimation implements Animation {
 
-	private int universeCount = 0;
-	private Universe current = null;
+	private Universe current = new MappedBackgroundUniverse();
+	private boolean universeSwitched = false;
+	private boolean animationComplete = false;
 	
-	public Universe getNextUniverse() {
+	public Universe switchUniverse(Object event) {
 
-		universeCount++;
+		universeSwitched = true;
+		//there is only the initial universe; when a switch is called for, set current to null;
+		animationComplete = true;
 		
-		if (universeCount == 1) {
-			return new MappedBackgroundUniverse();
-		}
-		else {
-			this.current = null;
-		}
-		return this.current;
+		return current;
 
 	}
 
 	public Universe getCurrentUniverse() {
-		return this.current;
+		return current;
 	}
 	
+	@Override
+	public boolean getUniverseSwitched() {
+		return universeSwitched;
+	}
+
+	@Override
+	public void acknowledgeUniverseSwitched() {
+		this.universeSwitched = false;		
+	}
+
+	@Override
+	public boolean isComplete() {
+		return animationComplete || current.isComplete();
+	}
+
+	@Override
+	public void setComplete(boolean complete) {
+		this.animationComplete = true;		
+	}
+
+	@Override
+	public void update(KeyboardInput keyboard, long actual_delta_time) {
+	}
 }
