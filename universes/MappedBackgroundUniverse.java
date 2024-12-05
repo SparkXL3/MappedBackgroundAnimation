@@ -69,13 +69,7 @@ public class MappedBackgroundUniverse implements Universe {
 		return true;
 	}		
 	
-	public String toString() {
-		return "MappedUniverse";
-	}
-
-	@Override
 	public void update(Animation animation, long actual_delta_time) {
-
 		if (KeyboardInput.getKeyboard().keyDownOnce(27)) {
 			complete = true;
 		}
