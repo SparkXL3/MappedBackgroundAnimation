@@ -1,9 +1,17 @@
+import java.awt.Image;
 import java.util.ArrayList;
 
 public class DASBackground implements Background {
 
-	public static final int TILE_HEIGHT = 0;
-	public static final int TILE_WIDTH = 0;
+	public static final int TILE_HEIGHT = 50;
+	public static final int TILE_WIDTH = 50;
+	
+	//private double shiftX;
+	//private double shiftY;
+	
+	private Image DASBackground;
+	
+   
 
 	public ArrayList<DisplayableSprite> getBarriers() {
 		// TODO Auto-generated method stub
@@ -12,8 +20,13 @@ public class DASBackground implements Background {
 
 	@Override
 	public Tile getTile(int col, int row) {
-		// TODO Auto-generated method stub
-		return null;
+		int x = (col * TILE_WIDTH);
+		int y = (row * TILE_HEIGHT);
+		Tile newTile = null;
+		
+		newTile = new Tile(DASBackground, x, y, TILE_WIDTH, TILE_HEIGHT, false);
+
+		return newTile;
 	}
 
 	@Override

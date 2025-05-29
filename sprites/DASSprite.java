@@ -11,10 +11,6 @@ public class DASSprite implements DisplayableSprite, MovableSprite {
 	private Image spriteImage;
 	private double velocityX;
 	private double velocityY;
-	
-	private int score = 0;
-	private String proximityMessage;
-	private boolean isAtExit;
 
 	public DASSprite(int i, int j) {
 		// TODO Auto-generated constructor stub
