@@ -6,8 +6,8 @@ public class DASBackground implements Background {
 	public static final int TILE_HEIGHT = 50;
 	public static final int TILE_WIDTH = 50;
 	
-	//private double shiftX;
-	//private double shiftY;
+	private int maxCols = 0;
+    private int maxRows = 0;
 	
 	private Image DASBackground;
 	
