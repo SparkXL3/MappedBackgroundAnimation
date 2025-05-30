@@ -24,19 +24,25 @@ public class DASBackground implements Background {
 	   map = background;
 	   
 	   try {
-   		this.NRAFlag = ImageIO.read(new File("res/NRAFlag.png"));
-   		this.CNTFAIFlag = ImageIO.read(new File("res/CNTFAIFlag.png"));
-   		this.TuvanFlag = ImageIO.read(new File("res/TuvanFlag.png"));
+   		this.NRAFlag = ImageIO.read(new File("res/DAS/NRAFlag.png"));
+   		this.CNTFAIFlag = ImageIO.read(new File("res/DAS/CNTFAIFlag.png"));
+   		this.TuvanFlag = ImageIO.read(new File("res/DAS/TuvanFlag.png"));
    	}
    	catch (IOException e) {
-   		//System.out.println(e.toString());
    	}
 	   
    }
 
 	public ArrayList<DisplayableSprite> getBarriers() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<DisplayableSprite> barriers = new ArrayList<DisplayableSprite>();
+		for(int col = 0; col < map[0].length; col++) {
+			for(int row = 0; row < map.length; row++) {
+				if(map[row][col] == 0) {
+					barriers.add(new BarrierSprite(col * TILE_WIDTH, row * TILE_HEIGHT, (col + 1) * TILE_WIDTH, (row + 1) * TILE_HEIGHT, false));
+				}
+			}
+		}
+		return barriers;
 	}
 
 	public Tile getTile(int col, int row) {
@@ -54,7 +60,13 @@ public class DASBackground implements Background {
 		} else {
 			image = null;
 		}
-		return null;
+		
+		int x = (col * TILE_WIDTH);
+		int y = (row * TILE_HEIGHT);
+		
+		Tile newTile = new Tile(image, x, y, TILE_WIDTH, TILE_HEIGHT, false);
+		
+		return newTile;
 		
 	}
 
