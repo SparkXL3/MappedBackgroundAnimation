@@ -12,8 +12,9 @@ public class DASSprite implements DisplayableSprite, MovableSprite {
 	private double velocityX;
 	private double velocityY;
 
-	public DASSprite(int i, int j) {
-		// TODO Auto-generated constructor stub
+	public DASSprite(double centerX, double centerY) {
+		this.centerX = 100; 
+	    this.centerY = 100;
 	}
 
 	public void setCenterX(double centerX) {
@@ -38,7 +39,7 @@ public class DASSprite implements DisplayableSprite, MovableSprite {
 
 	public Image getImage() {
 		try {
-	        File imageFile = new File("res/CzechBall.png");
+	        File imageFile = new File("res/DAS/CzechBall.png");
 	        return ImageIO.read(imageFile);
 	    } catch (IOException e) {
 	        e.printStackTrace();

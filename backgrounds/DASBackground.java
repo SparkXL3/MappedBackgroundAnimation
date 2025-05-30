@@ -20,7 +20,7 @@ public class DASBackground implements Background {
 	private int map[][] = null; 
 	
    public DASBackground() {
-	   int[][] background = CSVReader.importFromCSV("res/MappedBackgroundBackgroundThingy.csv");
+	   int[][] background = CSVReader.importFromCSV("res/DAS/MappedBackgroundBackgroundThingy.csv");
 	   map = background;
 	   
 	   try {
@@ -30,14 +30,15 @@ public class DASBackground implements Background {
    	}
    	catch (IOException e) {
    	}
-	   
+	   maxRows = map.length - 1;
+   	maxCols = map[0].length - 1;
    }
 
 	public ArrayList<DisplayableSprite> getBarriers() {
 		ArrayList<DisplayableSprite> barriers = new ArrayList<DisplayableSprite>();
 		for(int col = 0; col < map[0].length; col++) {
 			for(int row = 0; row < map.length; row++) {
-				if(map[row][col] == 0) {
+				if(map[row][col] == 1) {
 					barriers.add(new BarrierSprite(col * TILE_WIDTH, row * TILE_HEIGHT, (col + 1) * TILE_WIDTH, (row + 1) * TILE_HEIGHT, false));
 				}
 			}
