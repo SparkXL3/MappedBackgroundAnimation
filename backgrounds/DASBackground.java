@@ -1,5 +1,9 @@
 import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 public class DASBackground implements Background {
 
@@ -9,66 +13,100 @@ public class DASBackground implements Background {
 	private int maxCols = 0;
     private int maxRows = 0;
 	
-	private Image DASBackground;
+	private Image NRAFlag;
+	private Image CNTFAIFlag;
+	private Image TuvanFlag;
 	
-   
+	private int map[][] = null; 
+	
+   public DASBackground() {
+	   int[][] background = CSVReader.importFromCSV("res/MappedBackgroundBackgroundThingy.csv");
+	   map = background;
+	   
+	   try {
+   		this.NRAFlag = ImageIO.read(new File("res/NRAFlag.png"));
+   		this.CNTFAIFlag = ImageIO.read(new File("res/CNTFAIFlag.png"));
+   		this.TuvanFlag = ImageIO.read(new File("res/TuvanFlag.png"));
+   	}
+   	catch (IOException e) {
+   		//System.out.println(e.toString());
+   	}
+	   
+   }
 
 	public ArrayList<DisplayableSprite> getBarriers() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public Tile getTile(int col, int row) {
-		int x = (col * TILE_WIDTH);
-		int y = (row * TILE_HEIGHT);
-		Tile newTile = null;
+		//Check why three nulls are needed
+		Image image = null;
 		
-		newTile = new Tile(DASBackground, x, y, TILE_WIDTH, TILE_HEIGHT, false);
-
-		return newTile;
+		if (row < 0 || row > maxRows || col < 0 || col > maxCols) {
+			image = null;
+		} else if (map[row][col] == 0) {
+			image = NRAFlag;
+		} else if (map[row][col] == 1) {
+			image = CNTFAIFlag;
+		} else if (map[row][col] == 2) {
+			image = TuvanFlag;
+		} else {
+			image = null;
+		}
+		return null;
+		
 	}
 
-	@Override
 	public int getCol(double x) {
-		// TODO Auto-generated method stub
-		return 0;
+		int col = 0;
+		if(TILE_WIDTH != 0) {
+			col = (int) (x / TILE_WIDTH);
+			if(x < 0) {
+				return col - 1;
+			} else {
+				return col;
+			}
+		} else {
+			return 0;
+		}
 	}
 
-	@Override
 	public int getRow(double y) {
-		// TODO Auto-generated method stub
-		return 0;
+int row = 0;
+		
+		if (TILE_HEIGHT != 0) {
+			row = (int) (y / TILE_HEIGHT);
+			if (y < 0) {
+				return row - 1;
+			}
+			else {
+				return row;
+			}
+		}
+		else {
+			return 0;
+		}
 	}
 
-	@Override
 	public double getShiftX() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	@Override
 	public double getShiftY() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	@Override
 	public void setShiftX(double shiftX) {
-		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void setShiftY(double shiftY) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
-	@Override
 	public void update(Universe universe, long actual_delta_time) {
-		// TODO Auto-generated method stub
 		
 	}
-
 }
