@@ -32,6 +32,8 @@ public class DASBackground implements Background {
    	}
 	   maxRows = map.length - 1;
    	maxCols = map[0].length - 1;
+   	
+   	
    }
 
 	public ArrayList<DisplayableSprite> getBarriers() {

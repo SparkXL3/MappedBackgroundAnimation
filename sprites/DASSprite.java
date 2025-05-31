@@ -5,6 +5,8 @@ import javax.imageio.ImageIO;
 
 public class DASSprite implements DisplayableSprite, MovableSprite {
 	
+	private final double VELOCITY = 200;
+	
 	private double centerX = 0;
 	private double centerY = 0;
 	
@@ -106,10 +108,29 @@ public void setDispose(boolean dispose) {
 
 	@Override
 	public void update(Universe universe, long actual_delta_time) {
-		  double deltaSeconds = actual_delta_time / 1000.0;
-		    centerX += velocityX * deltaSeconds;
-		    centerY += velocityY * deltaSeconds;
+		velocityX = 0;
+		velocityY = 0;
 		
+		KeyboardInput keyboardInput = KeyboardInput.getKeyboard();
+		
+		if(keyboardInput.keyDown(37)) {
+			velocityX = -VELOCITY;
+		}
+		if(keyboardInput.keyDown(38)) {
+			velocityY = -VELOCITY;			
+		}
+		if(keyboardInput.keyDown(39)) {
+			velocityX += VELOCITY;
+		}
+		if(keyboardInput.keyDown(40)) {
+			velocityY += VELOCITY;			
+		}
+
+		this.centerX += actual_delta_time * 0.001 * velocityX;
+		this.centerY += actual_delta_time * 0.001 * velocityY;
+				
 	}
-	
+		
 }
+	
+
