@@ -20,14 +20,14 @@ public class DASBackground implements Background {
 	private int map[][] = null; 
 	
    public DASBackground() {
-	   int[][] background = CSVReader.importFromCSV("res/DAS/MappedBackgroundBackgroundThingy.csv");
+	   int[][] background = CSVReader.importFromCSV("res/DAS/BackgroundFiles/MappedBackgroundBackgroundThingy.csv");
 	   map = background;
 
 	   
 	   try {
-   		this.NRAFlag = ImageIO.read(new File("res/DAS/NRAFlag.png"));
-   		this.CNTFAIFlag = ImageIO.read(new File("res/DAS/CNTFAIFlag.png"));
-   		this.TuvanFlag = ImageIO.read(new File("res/DAS/TuvanFlag.png"));
+   		this.NRAFlag = ImageIO.read(new File("res/DAS/BackgroundFiles/NRAFlag.png"));
+   		this.CNTFAIFlag = ImageIO.read(new File("res/DAS/BackgroundFiles/CNTFAIFlag.png"));
+   		this.TuvanFlag = ImageIO.read(new File("res/DAS/BackgroundFiles/TuvanFlag.png"));
    	}
    	catch (IOException e) {
    	}
@@ -50,7 +50,6 @@ public class DASBackground implements Background {
 	}
 
 	public Tile getTile(int col, int row) {
-		//Check why three nulls are needed
 		Image image = null;
 		
 		if(row < 0 || row > maxRows || col < 0 || col > maxCols) {
@@ -76,32 +75,21 @@ public class DASBackground implements Background {
 
 	public int getCol(double x) {
 		int col = 0;
-		if(TILE_WIDTH != 0) {
-			col = (int) (x / TILE_WIDTH);
-			if(x < 0) {
-				return col - 1;
-			} else {
-				return col;
-			}
+		col = (int) (x / TILE_WIDTH);
+		if(x < 0) {
+			return col - 1;
 		} else {
-			return 0;
+			return col;
 		}
 	}
 
 	public int getRow(double y) {
-int row = 0;
-		
-		if(TILE_HEIGHT != 0) {
-			row = (int) (y / TILE_HEIGHT);
-			if(y < 0) {
-				return row - 1;
-			}
-			else {
-				return row;
-			}
-		}
-		else {
-			return 0;
+		int row = 0;
+		row = (int) (y / TILE_HEIGHT);
+		if(y < 0) {
+			return row - 1;
+		} else {
+			return row;
 		}
 	}
 
