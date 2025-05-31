@@ -77,16 +77,16 @@ public class DASSprite implements DisplayableSprite, MovableSprite {
 
 	public double getHeight() {
 		if(spriteImage != null) {
-            return Math.min(50, Math.max(spriteImage.getHeight(null), 50));
+            return Math.min(50, Math.max(spriteImage.getHeight(null), 32));
         }
-        return 50;
+        return 32;
     }
 
 	public double getWidth() {
 		if(spriteImage != null) {
-            return Math.min(50, Math.max(spriteImage.getWidth(null), 50));
+            return Math.min(50, Math.max(spriteImage.getWidth(null), 32));
         }
-        return 50;
+        return 32;
     }
 	
 	public double getCenterX() {
@@ -106,13 +106,25 @@ public void setDispose(boolean dispose) {
 		
 	}
 
-	@Override
+public boolean barrierIntersects(BarrierSprite barrier) {
+    return this.getMaxX() > barrier.getMinX() && this.getMinX() < barrier.getMaxX() && this.getMaxY() > barrier.getMinY() && this.getMinY() < barrier.getMaxY();
+}
+
 	public void update(Universe universe, long actual_delta_time) {
+		double deltaSeconds = actual_delta_time / 1000.0;
 		velocityX = 0;
 		velocityY = 0;
 		
 		KeyboardInput keyboardInput = KeyboardInput.getKeyboard();
-		
+	for(DisplayableSprite sprite : universe.getSprites()) {
+		if(sprite instanceof BarrierSprite) {
+            BarrierSprite barrier = (BarrierSprite) sprite;
+            if(this.barrierIntersects(barrier)) {
+                centerX -= velocityX * deltaSeconds; 
+                centerY -= velocityY * deltaSeconds;
+            }
+        } else {
+    	
 		if(keyboardInput.keyDown(37)) {
 			velocityX = -VELOCITY;
 		}
@@ -129,8 +141,11 @@ public void setDispose(boolean dispose) {
 		this.centerX += actual_delta_time * 0.001 * velocityX;
 		this.centerY += actual_delta_time * 0.001 * velocityY;
 				
-	}
 		
+		
+        	}	
+		}
+	}
 }
 	
 

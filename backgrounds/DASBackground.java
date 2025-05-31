@@ -22,6 +22,7 @@ public class DASBackground implements Background {
    public DASBackground() {
 	   int[][] background = CSVReader.importFromCSV("res/DAS/MappedBackgroundBackgroundThingy.csv");
 	   map = background;
+
 	   
 	   try {
    		this.NRAFlag = ImageIO.read(new File("res/DAS/NRAFlag.png"));
@@ -40,7 +41,7 @@ public class DASBackground implements Background {
 		ArrayList<DisplayableSprite> barriers = new ArrayList<DisplayableSprite>();
 		for(int col = 0; col < map[0].length; col++) {
 			for(int row = 0; row < map.length; row++) {
-				if(map[row][col] == 1) {
+				if(map[row][col] == 0) {
 					barriers.add(new BarrierSprite(col * TILE_WIDTH, row * TILE_HEIGHT, (col + 1) * TILE_WIDTH, (row + 1) * TILE_HEIGHT, false));
 				}
 			}
@@ -52,13 +53,13 @@ public class DASBackground implements Background {
 		//Check why three nulls are needed
 		Image image = null;
 		
-		if (row < 0 || row > maxRows || col < 0 || col > maxCols) {
+		if(row < 0 || row > maxRows || col < 0 || col > maxCols) {
 			image = null;
-		} else if (map[row][col] == 0) {
+		} else if(map[row][col] == 0) {
 			image = NRAFlag;
-		} else if (map[row][col] == 1) {
+		} else if(map[row][col] == 1) {
 			image = CNTFAIFlag;
-		} else if (map[row][col] == 2) {
+		} else if(map[row][col] == 2) {
 			image = TuvanFlag;
 		} else {
 			image = null;
@@ -90,9 +91,9 @@ public class DASBackground implements Background {
 	public int getRow(double y) {
 int row = 0;
 		
-		if (TILE_HEIGHT != 0) {
+		if(TILE_HEIGHT != 0) {
 			row = (int) (y / TILE_HEIGHT);
-			if (y < 0) {
+			if(y < 0) {
 				return row - 1;
 			}
 			else {
